@@ -1,22 +1,19 @@
 create or replace package pack_mante
-is 
-procedure mant_agregar(dep_id DEPARTMENTS.DEPARTMENT_ID%type,
-dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE);
-PROCEDURE mant_eliminar (DEP_ID DEPARTMENTS.DEPARTMENT_ID%TYPE);
-PROCEDURE mant_modificar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,
-dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE);
+IS
+PROCEDURE mant_agregar(dep_id DEPARTMENTS.DEPARTMENT_ID%type,dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE);
+PROCEDURE mant_eliminar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE);
+PROCEDURE mant_modificar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE);
 PROCEDURE mant_consulta (dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE);
 
 END pack_mante;
 
---- CUERPO ------
 
-create or replace package body pack_mante
-is
+ 
+ 
     --Insertar nuevo departamento
-    procedure mant_agregar(dep_id DEPARTMENTS.DEPARTMENT_ID%type,
+ create or replace PROCEDURE mant_agregar (dep_id DEPARTMENTS.DEPARTMENT_ID%type,
 dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE,p_mensaje out varchar2)
-    is
+    IS
         v_department_id departments.department_id%type;
         v_department_dup exception;
         v_existe int;
@@ -44,10 +41,10 @@ dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc
             p_mensaje := ('ERROR - Primary key repetido');
         when others then
             p_mensaje := ('Error encontrado: '||SQLCODE||' Mensaje: '||SQLERRM);    
-    end;
+    end ;
     
     /*Actualizar los datos del departamento*/
-    procedure mant_actualizar(dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,
+    CREATE OR REPLACE procedure mant_actualizar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,
     dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE,p_mensaje out varchar2)
     as
         v_err_nombre exception;
@@ -83,7 +80,7 @@ dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc
     end;
     
     /*Eliminar un departamento*/
-    procedure mant_eliminar (DEP_ID DEPARTMENTS.DEPARTMENT_ID%TYPE,p_mensaje out varchar2)
+    CREATE OR REPLACE procedure mant_eliminar (DEP_ID DEPARTMENTS.DEPARTMENT_ID%TYPE,p_mensaje out varchar2)
     as
         v_exs_locations exception;
         v_num_locations number;

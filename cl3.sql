@@ -9,9 +9,10 @@ END pack_mante;
 
 
  
- 
+ create or replace package BODY pack_mante
+ is
     --Insertar nuevo departamento
- create or replace PROCEDURE mant_agregar (dep_id DEPARTMENTS.DEPARTMENT_ID%type,
+  PROCEDURE mant_agregar (dep_id DEPARTMENTS.DEPARTMENT_ID%type,
 dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE,p_mensaje out varchar2)
     IS
         v_department_id departments.department_id%type;
@@ -44,7 +45,7 @@ dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc
     end ;
     
     /*Actualizar los datos del departamento*/
-    CREATE OR REPLACE procedure mant_actualizar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,
+     procedure mant_actualizar (dep_id DEPARTMENTS.DEPARTMENT_ID%TYPE,
     dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc_id DEPARTMENTS.LOCATION_ID%TYPE,p_mensaje out varchar2)
     as
         v_err_nombre exception;
@@ -80,7 +81,7 @@ dep_nom DEPARTMENTS.DEPARTMENT_NAME%TYPE, man_id DEPARTMENTS.MANAGER_ID%TYPE,loc
     end;
     
     /*Eliminar un departamento*/
-    CREATE OR REPLACE procedure mant_eliminar (DEP_ID DEPARTMENTS.DEPARTMENT_ID%TYPE,p_mensaje out varchar2)
+     procedure mant_eliminar (DEP_ID DEPARTMENTS.DEPARTMENT_ID%TYPE,p_mensaje out varchar2)
     as
         v_exs_locations exception;
         v_num_locations number;
